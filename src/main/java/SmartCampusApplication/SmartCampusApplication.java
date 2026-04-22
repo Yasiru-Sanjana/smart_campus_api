@@ -5,6 +5,7 @@
 package SmartCampusApplication;
 
 import SmartCampusApplication.resource.DiscoveryResource;
+import SmartCampusApplication.resource.SensorResource;
 import SmartCampusApplication.resource.SensorRoomResource;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -22,8 +23,8 @@ public class SmartCampusApplication extends Application{
         Set<Class<?>> classes = new HashSet<>();
         classes.add(DiscoveryResource.class);
         classes.add(SensorRoomResource.class);
+        classes.add(SensorResource.class);
         return classes;
-    
     }
     
 }

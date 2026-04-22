@@ -17,8 +17,8 @@ public class Sensor implements BaseModel{
 
     public Sensor(String id, String type, String status, double currentValue, String roomId) {
         this.id = id;
-        this.type = type;
-        this.status = status;
+        this.type = type; //Temperature, Occupancy, CO2
+        this.status = status; //ACTIVE, MAINTENANCE, OFFLINE
         this.currentValue = currentValue;
         this.roomId = roomId;
     }
