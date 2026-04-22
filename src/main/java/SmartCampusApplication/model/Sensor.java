@@ -8,7 +8,7 @@ package SmartCampusApplication.model;
  *
  * @author yasirusanjana
  */
-public class Sensor {
+public class Sensor implements BaseModel{
     private String id;          // Unique identifier , e.g.,"TEMP -001"
     private String type;        // Category , e.g., " Temperature ", "Occupancy ", "CO2"
     private String status;      // Current state : " ACTIVE ", "MAINTENANCE ", or " OFFLINE "
@@ -23,12 +23,19 @@ public class Sensor {
         this.roomId = roomId;
     }
     
+    public Sensor() {
+        this.id = "";
+        this.type = "";
+        this.status = "";
+        this.currentValue = 0.0;
+        this.roomId = "";
+    }
     
-
+    @Override
     public String getId() {
         return id;
     }
-
+    @Override
     public void setId(String id) {
         this.id = id;
     }

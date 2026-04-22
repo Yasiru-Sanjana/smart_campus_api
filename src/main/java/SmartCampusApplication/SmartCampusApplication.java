@@ -4,6 +4,8 @@
  */
 package SmartCampusApplication;
 
+import SmartCampusApplication.resource.DiscoveryResource;
+import SmartCampusApplication.resource.SensorRoomResource;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
@@ -18,7 +20,8 @@ public class SmartCampusApplication extends Application{
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<>();
-        classes.add(Discovery.class);
+        classes.add(DiscoveryResource.class);
+        classes.add(SensorRoomResource.class);
         return classes;
     
     }

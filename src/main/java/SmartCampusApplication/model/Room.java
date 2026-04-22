@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author yasirusanjana
  */
-public class Room {
+public class Room implements BaseModel{
     private String id;              // Unique identifier , e.g.,"LIB -301"
     private String name;            // Human - readable name , e.g.," Library
     private int capacity;           // Maximum occupancy for safety
@@ -23,12 +23,20 @@ public class Room {
         this.capacity = capacity;
     }
     
+    public Room() {
+        this.id = "";
+        this.name = "";
+        this.capacity = 0;
+        this.sensorIds = new ArrayList<>();
+    }
     
-
+    
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public void setId(String id) {
         this.id = id;
     }
