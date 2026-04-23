@@ -19,7 +19,7 @@ public class Sensor implements BaseModel{
         this.id = id;
         this.type = type; //Temperature, Occupancy, CO2
         this.status = status; //ACTIVE, MAINTENANCE, OFFLINE
-        this.currentValue = currentValue;
+        this.currentValue = 0.0; //currentValue is added with the SensorReading class
         this.roomId = roomId;
     }
     

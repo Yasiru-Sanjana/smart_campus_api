@@ -18,6 +18,12 @@ public class SensorReading implements BaseModel{
         this.timestamp = timestamp;
         this.value = value;
     }
+    
+    public SensorReading() {
+        this.id = "";
+        this.timestamp = 0;
+        this.value = 0.0;
+    }
 
     @Override
     public String getId() {

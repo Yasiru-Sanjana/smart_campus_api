@@ -70,7 +70,7 @@ public class SensorResource {
         Room room = MockDatabase.rooms.get(newSensor.getRoomId());
         
         if (room == null){
-            return "The room does not exist";
+            return "A room with the ID does not exist";
         }
         
         sensorDAO.add(newSensor);
@@ -95,6 +95,11 @@ public class SensorResource {
         //Sending a text to confirm the delete
         sensorDAO.delete(sensorId);
         return "Room " + sensorId + " has been removed.";   
+    }
+    
+    @Path("/{sensorId}/readings")
+    public SensorReadingResource getReadingHistory(@PathParam("sensorId") String sensorId) {
+        return new SensorReadingResource();
     }
     
 

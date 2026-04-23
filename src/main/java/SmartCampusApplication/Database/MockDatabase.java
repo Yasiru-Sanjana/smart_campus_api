@@ -39,6 +39,11 @@ public class MockDatabase {
         
         //Initialize the readings list to recode senser readings
         readings.put(s1.getId(), new ArrayList<>());
+        
+        List<SensorReading> sensorReadings = readings.get(s1.getId());
+        sensorReadings.add(new SensorReading("Rec-01",System.currentTimeMillis(),27.0));
+        sensorReadings.add(new SensorReading("Rec-02",System.currentTimeMillis(),36.0));
+        
     
     }
 }
