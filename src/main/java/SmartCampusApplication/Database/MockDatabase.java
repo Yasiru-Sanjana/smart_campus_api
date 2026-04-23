@@ -33,15 +33,19 @@ public class MockDatabase {
         Room r2 = new Room("r2","Library-2",45);
         rooms.put(r2.getId(), r2);
         
-        //adding a sensor
+        //adding a sensors for tests
         Sensor s1 = new Sensor("TP1", "Temperature", "Active", 40.4, r1.getId());
         sensors.put(s1.getId(), s1);
+        
+        Sensor s2 = new Sensor("TP2", "Temperature", "Maintenance", 24.1, r1.getId());
+        sensors.put(s2.getId(), s2);
         
         //add the senser to the room
         r1.addSensorId(s1.getId());
         
         //Initialize the readings list to recode senser readings
         readings.put(s1.getId(), new ArrayList<>());
+        readings.put(s2.getId(), new ArrayList<>());
         
         List<SensorReading> sensorReadings = readings.get(s1.getId());
         sensorReadings.add(new SensorReading("Rec-01",System.currentTimeMillis(),27.0));

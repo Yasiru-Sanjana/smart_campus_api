@@ -4,29 +4,25 @@
  */
 package SmartCampusApplication.exception;
 
-/**
- *
- * @author yasirusanjana
- */
 import SmartCampusApplication.model.ErrorMessage;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
-
+/**
+ *
+ * @author yasirusanjana
+ */
 @Provider
-public class RoomNotEmptyExceptionMapper implements ExceptionMapper<RoomNotEmptyException>{
+public class LinkedResourceNotFoundExceptionMapper implements ExceptionMapper<LinkedResourceNotFoundException> {
 
     @Override
-    public Response toResponse(RoomNotEmptyException exception) {
+    public Response toResponse(LinkedResourceNotFoundException exception) {
+        ErrorMessage error = new ErrorMessage(exception.getMessage(), 422);
         
-        ErrorMessage error = new ErrorMessage(exception.getMessage(), 409);
-        
-        return Response.status(Response.Status.CONFLICT) 
+        return Response.status(422)
                        .entity(error)
                        .type(MediaType.APPLICATION_JSON)
-                       .build();           
+                       .build();
     }
-    
-    
 }

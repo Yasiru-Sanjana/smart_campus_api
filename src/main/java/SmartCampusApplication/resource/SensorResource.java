@@ -6,6 +6,7 @@ package SmartCampusApplication.resource;
 
 import SmartCampusApplication.Database.GenericDAO;
 import SmartCampusApplication.Database.MockDatabase;
+import SmartCampusApplication.exception.LinkedResourceNotFoundException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -70,8 +71,9 @@ public class SensorResource {
         Room room = MockDatabase.rooms.get(newSensor.getRoomId());
         
         if (room == null){
-            return "A room with the ID does not exist";
+            throw new LinkedResourceNotFoundException("The Room ID " + newSensor.getRoomId() + " does not exist.");
         }
+        
         
         sensorDAO.add(newSensor);
         // Link the sensor to the room in the database

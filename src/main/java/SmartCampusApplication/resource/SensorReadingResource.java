@@ -6,6 +6,7 @@ package SmartCampusApplication.resource;
 
 import static SmartCampusApplication.Database.MockDatabase.readings;
 import static SmartCampusApplication.Database.MockDatabase.sensors;
+import SmartCampusApplication.exception.SensorUnavailableException;
 import SmartCampusApplication.model.Sensor;
 import SmartCampusApplication.model.SensorReading;
 import java.util.ArrayList;
@@ -53,11 +54,17 @@ public class SensorReadingResource {
             readings.put(sensorId, new ArrayList<SensorReading>());
         }
         
+        //Get the sensor to update and check status
+        Sensor sensor = sensors.get(sensorId);
+        
+        if ("MAINTENANCE".equalsIgnoreCase(sensor.getStatus())) {
+            throw new SensorUnavailableException("Sensor " + sensorId + " is currently under maintenance and cannot accept new readings.");
+        }
+        
         //Add the reading
         readings.get(sensorId).add(newReading);
         
         
-        Sensor sensor = sensors.get(sensorId);
         if (sensor != null) {
             sensor.setCurrentValue(newReading.getValue());
         }
