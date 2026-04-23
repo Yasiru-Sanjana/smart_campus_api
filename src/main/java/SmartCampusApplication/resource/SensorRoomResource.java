@@ -6,6 +6,7 @@ package SmartCampusApplication.resource;
 
 import SmartCampusApplication.Database.GenericDAO;
 import SmartCampusApplication.Database.MockDatabase;
+import SmartCampusApplication.exception.RoomNotEmptyException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -70,7 +71,7 @@ public class SensorRoomResource {
         
         //Check if the room has active sensor and stop the delete request 
         if (!room.getSensorIds().isEmpty()) {
-            return "Error: Cannot delete room. It still has active sensors!";
+            throw new RoomNotEmptyException("This room cannot be deleted because it still contains sensors.");
         }
         
         //Sending a text to confirm the delete
