@@ -9,6 +9,7 @@ package SmartCampusApplication.exception;
  * @author yasirusanjana
  */
 import SmartCampusApplication.model.ErrorMessage;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
@@ -23,7 +24,8 @@ public class RoomNotEmptyExceptionMapper implements ExceptionMapper<RoomNotEmpty
         
         return Response.status(Response.Status.CONFLICT) 
                        .entity(error)
-                       .build();
+                        .type(MediaType.APPLICATION_JSON)
+                       .build();           
     }
     
     
