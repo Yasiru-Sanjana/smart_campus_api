@@ -1,11 +1,11 @@
-#Overview of API Design
+# Overview of API Design
 
 The Smart Campus(smart_campus_api) is a RESTful web service built using Java and the JAX-RS framework.
 It is designed to manage university campus facilities for university’s
 ”Smart Campus” initiative, specifically tracking Rooms within the university, the Sensors 
 (e.g., CO2 monitors, occupancy trackers, Temperature sensors), and historical Sensor Readings.
 
-##Resource Hierarchy: 
+## Resource Hierarchy: 
 The API follows a standard RESTful structure with resources separated logically. it contains reesource classes for
  SensorRoomResource as /rooms and SensorResource as /sensors It utilizes the Sub-Resource
  Locator pattern routing as /sensors/{sensorId}/readings to a dedicated SensorReadingResource to manage 
@@ -15,9 +15,9 @@ deep nesting and keep controller classes clean.
 
 
 
-#Conceptual Report
+# Conceptual Report
 
-##Question 1
+## Question 1
 
 By default, a new instance of a JAX-RS resource class is created for each request. Due to multiple
 requests being handled by different instances of resource classes simultaneously, shared in-memory data
@@ -26,7 +26,7 @@ manipulated or accessed at the same time. To mitigate such issues and ensure thr
 application utilises concurrent collections such as ConcurrentHashMap to store data, which can safely be
 manipulated by multiple threads.
 
-##Question 2
+## Question 2
 
 Providing Hypermedia (HATEOAS) is a hallmark of advanced RESTful design because it renders the API
 discoverable and self-descriptive. Instead of relying on documentation and hardcoded endpoints that must
@@ -35,7 +35,7 @@ API by following URIs embedded directly within the server's responses. This deta
 implementation from the server's specific routing structure, allowing the backend of the server to change
 without breaking existing client applications.
 
-##Question 3
+## Question 3
 
 Returning only IDs minimises the initial size of the response, thereby reducing the network bandwidth
 required. However, if the client requires details of specific rooms later, this will result in a higher network
@@ -44,7 +44,7 @@ IDs. In contrast, returning full room objects increases the initial payload size
 total number of HTTP requests required. Since the data shared with the smart campas api is smaller,
 returning full room objects was chosen as the best approach.
 
-##Question 4
+## Question 4
 
 The DELETE operation is idempotent. The roomResource contains an if condition to check whether the
 room exists. If a client mistakenly sends the same DELETE request for a specific room multiple times, the
@@ -54,14 +54,14 @@ response without causing further modifications or side effects. The data remains
 successful deletion. Due to the DELETE operation deleting a room with a specific ID, the operation is
 idempotent regardless of the if condition.
 
-##Question 5
+## Question 5
 
 The @Consumes annotation imposes a strict constraint that the media type must be JSON. If a
 client attempts to send an unsupported data format, the JAX-RS block the request before the
 code in the resource method is executed to prevent any damage. The clients will receive an
 HTTP 415 Unsupported Media Type response.
 
-##Question 6
+## Question 6
 
 Utilising @QueryParam is superior for filtering because it treats filter criteria as optional add-ons to the
 current URL path. In contrast, embedding the filter directly into the URL path defines the URL as a
@@ -70,7 +70,7 @@ parameter approach prevents URI bloat and offers better flexibility, especially 
 multiple, combinable search parameters that would otherwise require convoluted and rigid path routing
 setups.
 
-##Question 7
+## Question 7
 
 The Sub-Resource Locator pattern enhances API architecture by dividing route handling to multiple
 classes instead of centralising all logic for deeply nested URL paths into a single controller class. With a
@@ -79,7 +79,7 @@ dedicated sub-resource classes to be handled elsewhere. This separation reduces 
 improves readability, and simplifies unit testing, making the overall codebase significantly easier to
 maintain and scale.
 
-##Question 8
+## Question 8
 
 HTTP 422 is semantically superior in this specific context because the standard 404 is a more general
 error that usually indicates the endpoint URL doesn't exist. Unlike 404, 422 indicates that the data and
@@ -88,7 +88,7 @@ the code's logic. In the smart campas api codebase, the error is thrown because 
 a valid room ID. Error 422 is specifically designed to indicate the issues in processing instructions
 (Unprocessable Entity).
 
-##Question 9
+## Question 9
 
 Exposing internal Java stack traces can lead to cybersecurity vulnerabilities due to an attacker's
 ability to read and analyse these stack traces to map the application's underlying architecture,
@@ -96,7 +96,7 @@ including specific framework versions, database technologies, internal package n
 conventions, and file system paths. They can use this information to detect vulnerabilities in the
 system and plan an attack that can bypass security measures.
 
-##Question 10
+## Question 10
 
 Using JAX-RS filters for cross-cutting concerns, such as logging, is considerably more advantageous than
 manually inserting logger statements into every statement, primarily because it centralises loggin in a
