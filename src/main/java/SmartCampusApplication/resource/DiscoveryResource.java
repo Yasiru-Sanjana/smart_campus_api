@@ -36,6 +36,7 @@ public class DiscoveryResource {
         Map<String, Object> collections = new HashMap<>();
         collections.put("rooms", "/api/v1/rooms");
         collections.put("sensors", "/api/v1/sensors");
+        collections.put("sensor readings", "/api/v1/sensors/{sensorId}/readings");
         
         //put the new map inside the main map
         metadata.put("endpoints", collections);

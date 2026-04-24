@@ -50,7 +50,7 @@ public class SensorRoomResource {
         
         // This condition will check if the data is missing 
         if (newRoom == null || newRoom.getId() == null || newRoom.getId().isEmpty()) {
-            return "Invalid Input, required information might be missing"; 
+            return "Invalid Input"; 
         }else{
             roomDAO.add(newRoom);
             // The room is returned back to confirm
