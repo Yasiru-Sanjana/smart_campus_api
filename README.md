@@ -22,10 +22,68 @@ The API features advanced exception mapping to ensure it never leaks internal Ja
  to accurate HTTP status codes (409 Conflict, 422 Unprocessable Entity, 403 Forbidden) to provide clear, 
 semantic feedback to clients.
 
+## curl Commands
 
+### Discovery Endpoint (GET)
 
+`curl -X GET "http://localhost:8080/smart_campus_api/api/v1"`
 
+### Get a List of all the Rooms
 
+`curl -X GET "http://localhost:8080/smart_campus_api/api/v1/room"`
+
+### Get details for a specific room by ID
+
+`curl -X GET "http://localhost:8080/smart_campus_api/api/v1/room/r1"`
+
+### Add a Room
+
+```
+curl -X POST "http://localhost:8080/smart_campus_api/api/v1/room" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "id": "r3",
+           "name": "Outdoor Classroom",
+           "capacity": 20,
+           "sensorIds": ["OC1"]
+         }'
+```
+
+### Add a Room without an ID (Error Test)
+
+```
+curl -X POST "http://localhost:8080/smart_campus_api/api/v1/room" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "id": "",
+           "name": "Outdoor Classroom",
+           "capacity": 20,
+           "sensorIds": ["OC1"]
+         }'
+```
+
+### Add a Sensor to a Non-existent Room (Error Test)
+
+```
+curl -X POST "http://localhost:8080/smart_campus_api/api/v1/sensors" \
+     -H "Content-Type: application/json" \
+     -d '{
+            "id": "CO2-2",
+            "type": "CO2",
+            "status": "Active",
+            "roomId": "r9"
+         }'
+```
+### Add a Sensor Reading to a Sensor in  Maintance (Error Test)
+```
+curl -X POST "http://localhost:8080/smart_campus_api/api/v1/sensors/TP2/readings" \
+     -H "Content-Type: application/json" \
+     -d '{
+            "id": "TP2",
+            "timestamp": 0,
+            "value": 23.0
+        }'
+```
 
 ## Conceptual Report
 
